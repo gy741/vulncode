@@ -24,14 +24,13 @@ public class XLevel1Classic {
         public void handle(HttpExchange t) throws IOException {
             Map<String, String> param = queryToMap(t.getRequestURI().getQuery());
 
-            if (!param.containsKey("q")) {
+            if (param == null || !param.containsKey("q")) {
 		        String response = "<h1>Hello World</h1>";
 		        t.sendResponseHeaders(200, response.length());
 		        OutputStream os = t.getResponseBody();
 		        os.write(response.getBytes());
 		        os.close();
             } else {
-		        // 'q' 파라미터가 있는 경우 정상 처리
 		        String response = String.format("<h1>%s</h1>", param.get("q"));
 		        t.sendResponseHeaders(200, response.length());
 		        OutputStream os = t.getResponseBody();
@@ -42,7 +41,7 @@ public class XLevel1Classic {
 
         public Map<String, String> queryToMap(String query) {
             if(query == null) {
-                return null;
+                return new HashMap<>();
             }
             Map<String, String> result = new HashMap<>();
             for (String param : query.split("&")) {
