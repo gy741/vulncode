@@ -9,18 +9,18 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
-public class level1-classic {
+public class Level1Classic {
 
     public static void main(String[] args) throws Exception {
 	//localhost mode
-        HttpServer server = HttpServer.create(new InetSocketAddress(1337), 0);
+        //HttpServer server = HttpServer.create(new InetSocketAddress(1337), 0);
 	//remotehost mode
-	//HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", 1337), 0);
+	HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", 1337), 0);
         server.createContext("/", new WebHandler());
         server.setExecutor(null);
         server.start();
 
-        System.out.println("Running at: http://localhost:1337/ or http://serverip/1337/");
+        System.out.println("Running at: http://localhost:1337/ or http://serverip:1337/");
     }
 
     static class WebHandler implements HttpHandler {
