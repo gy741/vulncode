@@ -9,7 +9,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
-public class Level1Classic {
+public class XLevel1Classic {
 
     public static void main(String[] args) throws Exception {
 	//localhost mode
