@@ -1,7 +1,7 @@
 version: '3.8'
 services:
     java:
-        container_name: vsnippet-level1-classic
+        container_name: vsnippet-x-level1-classic
         build:
             context: .
             dockerfile: Dockerfile
