@@ -12,10 +12,10 @@ import com.sun.net.httpserver.HttpServer;
 public class level1-classic {
 
     public static void main(String[] args) throws Exception {
-		//localhost mode
+	//localhost mode
         HttpServer server = HttpServer.create(new InetSocketAddress(1337), 0);
-		//remotehost mode
-		//HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", 1337), 0);
+	//remotehost mode
+	//HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", 1337), 0);
         server.createContext("/", new WebHandler());
         server.setExecutor(null);
         server.start();
