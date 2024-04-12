@@ -12,15 +12,11 @@ import com.sun.net.httpserver.HttpServer;
 public class XLevel1Classic {
 
     public static void main(String[] args) throws Exception {
-	//localhost mode
-        //HttpServer server = HttpServer.create(new InetSocketAddress(1337), 0);
-	//remotehost mode
-	HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", 1337), 0);
+        HttpServer server = HttpServer.create(new InetSocketAddress(1337), 0);
         server.createContext("/", new WebHandler());
         server.setExecutor(null);
         server.start();
-
-        System.out.println("Running at: http://localhost:1337/ or http://serverip:1337/");
+        System.out.println("Server started on port 1337.");
     }
 
     static class WebHandler implements HttpHandler {
@@ -28,13 +24,20 @@ public class XLevel1Classic {
         public void handle(HttpExchange t) throws IOException {
             Map<String, String> param = queryToMap(t.getRequestURI().getQuery());
 
-            String response = String.format("<h1>%s</h1>",param.get("q"));
-
-            t.sendResponseHeaders(200, response.length());
-            OutputStream os = t.getResponseBody();
-
-            os.write(response.getBytes());
-            os.close();
+            if (!param.containsKey("q")) {
+		        String response = "<h1>404 Not Found</h1>";
+		        t.sendResponseHeaders(404, response.length()); // 상태 코드를 404로 설정
+		        OutputStream os = t.getResponseBody();
+		        os.write(response.getBytes());
+		        os.close();
+            } else {
+		        // 'q' 파라미터가 있는 경우 정상 처리
+		        String response = String.format("<h1>%s</h1>", param.get("q"));
+		        t.sendResponseHeaders(200, response.length());
+		        OutputStream os = t.getResponseBody();
+		        os.write(response.getBytes());
+		        os.close();
+            }
         }
 
         public Map<String, String> queryToMap(String query) {
