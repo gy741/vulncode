@@ -25,8 +25,8 @@ public class XLevel1Classic {
             Map<String, String> param = queryToMap(t.getRequestURI().getQuery());
 
             if (!param.containsKey("q")) {
-		        String response = "<h1>404 Not Found</h1>";
-		        t.sendResponseHeaders(404, response.length()); // 상태 코드를 404로 설정
+		        String response = "<h1>Hello World</h1>";
+		        t.sendResponseHeaders(200, response.length());
 		        OutputStream os = t.getResponseBody();
 		        os.write(response.getBytes());
 		        os.close();
